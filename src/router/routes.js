@@ -1,3 +1,5 @@
+import CartPage from '../pages/Cart';
+
 
 const routes = [
   {
@@ -7,6 +9,10 @@ const routes = [
       { path: '', component: () => import('pages/ProductView.vue') }
     ]
   },
+  {
+    path: '/cart',
+    component: CartPage
+  }
   // {
   //   path: '/dashboard',
   //   component: () => import('layouts/DashboardLayout2.vue'),

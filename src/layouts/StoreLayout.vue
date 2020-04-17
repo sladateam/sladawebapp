@@ -6,19 +6,29 @@
           flat
           dense
           round
-          icon="menu"
+          icon="post_add"
           aria-label="Menu"
-        /> -->
+        />
 
-        <q-space/>
+        <q-space/> -->
 
-        <img src="~/assets/logowhite.png" width="45%" />
+        <img src="~/assets/logowhite.png" width="40%" style="margin-left: -10px" />
         <!-- <q-toolbar-title>
           {{siteName}}
         </q-toolbar-title> -->
 
         <q-space/>
-        
+
+        <q-btn
+          flat
+          dense
+          round
+          icon="shopping_basket"
+          aria-label="Menu"
+          to="/cart"
+        >
+          <q-badge color="yellow-7" class="text-black text-bold" floating>{{ cartTotalItem }}</q-badge>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -29,12 +39,20 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'StoreLayout',
   data () {
     return {
       siteName: 'slada.id',
     }
+  },
+  computed: {
+    ...mapGetters('cart', {
+      cartTotalItem: 'cartTotalItem'
+    })
   }
 }
 </script>
