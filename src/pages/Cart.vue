@@ -380,12 +380,12 @@ export default {
       }else{
         voucherCode = 'Tanpa%20Voucher' + '%0A%0A';
       }
-      let divider1 = '================================' + '%0A%0A';
+      let divider1 = '=============================' + '%0A%0A';
       let subTotal = '*Subtotal%20:*%20Rp' + this.formatPrice(this.totalPrice) + '%0A';
       let shipmentFee = '*Biaya%20Pengiriman%20:*%20Rp' + this.formatPrice(this.shipmentFee) + '%0A';
       let voucherDiscount = '*Diskon%20:*%20Rp' + this.formatPrice(this.voucherDiscount) + '%0A%0A';
       let grandTotal = '*Grand%20Total%20:*%20Rp' + this.formatPrice(this.grandTotal) + '%0A%0A';
-      let divider2 = '================================' + '%0A%0A';
+      let divider2 = '=============================' + '%0A%0A';
       let referralName = '';
       if(this.currentVoucher !== null){
         referralName = '*Referral%20:*%20' + this.currentVoucher.referral;

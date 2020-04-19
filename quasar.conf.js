@@ -107,9 +107,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Slada.id Fresh Everyday',
+        name: 'Slada.id - Fresh Everyday',
         
-        short_name: 'Slada.id Fresh Everyday',
+        short_name: 'Slada.id - Fresh Everyday',
         description: 'Shop Vegetable Make Easy',
         display: 'standalone',
         orientation: 'portrait',
