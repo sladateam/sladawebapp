@@ -19,7 +19,7 @@ export function cartProducts (state, getters, rootState) {
 
 export function cartTotalPrice (state, getters) {
     return getters.cartProducts.reduce((total, product) => {
-        return total + product.price * product.quantity
+        return total + product.price * Number(product.quantity)
     }, 0)
 }
 

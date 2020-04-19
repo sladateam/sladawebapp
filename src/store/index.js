@@ -5,6 +5,8 @@ import createPersistedState from "vuex-persistedstate";
 // we first import the module
 import products from './products'
 import cart from './cart'
+import voucher from './voucher'
+import profile from './profile'
 
 Vue.use(Vuex)
 
@@ -13,7 +15,9 @@ export default function (/* { ssrContext } */) {
     modules: {
       // then we reference it
       products,
-      cart
+      cart,
+      voucher,
+      profile
     },
     plugins: [createPersistedState()],
     // enable strict mode (adds overhead!)

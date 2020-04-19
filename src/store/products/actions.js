@@ -22,7 +22,7 @@ import axios from 'axios';
 
 export function fetchProducts ({commit}) {
 
-  axios.get( "https://sheetdb.io/api/v1/imx11o6z64lzo" )
+  axios.get( "https://sheetdb.io/api/v1/qm26nnwtfg9he" )
     .then(response => {
       console.log(response)
       commit('setProducts', response.data);

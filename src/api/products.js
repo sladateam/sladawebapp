@@ -14,7 +14,7 @@
 //     {"id": 3, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 5}
 //   ]
 
-    const _products = axios.get( "https://sheetdb.io/api/v1/imx11o6z64lzo" )
+    const _products = axios.get( "https://sheetdb.io/api/v1/qm26nnwtfg9he" )
         .then(response => {
             console.log(response)
 

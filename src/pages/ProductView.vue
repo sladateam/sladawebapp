@@ -15,7 +15,16 @@
           </q-card-section>
 
           <q-card-actions>
-            <q-btn @click="addProductToCart(prd)" flat class="bg-red-5 text-white full-width" style="padding-top: 0px; padding-bottom: 0px;"><span style="text-transform: capitalize; font-weight: bold; font-size: 12px">Tambah Ke Keranjang</span></q-btn>
+            <q-btn rounded @click="addProductToCart(prd, i)" flat class="bg-red-5 text-white full-width" style="padding-top: 0px; padding-bottom: 0px;">
+              <q-circular-progress
+                indeterminate
+                :thickness="0.3"
+                size="20px"
+                color="white"
+                v-if="buttonLoading[i]"
+              />
+              <span v-if="buttonLoading.length == 0 || buttonLoading[i] != true" style="text-transform: capitalize; font-weight: bold; font-size: 12px">Tambah Ke Keranjang</span>
+            </q-btn>
           </q-card-actions>
 
         </q-card>
@@ -25,6 +34,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import axios from 'axios';
 import { mapMutations, mapState, mapActions } from 'vuex';
 
@@ -33,7 +43,9 @@ export default {
   data () {
     return {
       // 
-      cart: []
+      cart: [],
+      visibleProgress: false,
+      buttonLoading: [],
     }
   },
   created () {
@@ -50,9 +62,19 @@ export default {
         let val = (value/1).toFixed(0).replace('.', ',')
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     },
-    ...mapActions('cart', [
-      'addProductToCart'
-    ])
+    addProductToCart(product, key) {
+      Vue.set(this.buttonLoading, key, true);
+
+      setTimeout(() => {
+        this.buttonLoading = [];
+        this.$store.dispatch('cart/addProductToCart', product);
+        this.playSound();
+      }, 500)
+    },
+    playSound () {
+      var audio = new Audio("http://www.orangefreesounds.com/wp-content/uploads/2020/01/Push-button-sound-effect.mp3");
+      audio.play();
+    }
     // ...mapMutations('products', [
     //   ''
     // ])

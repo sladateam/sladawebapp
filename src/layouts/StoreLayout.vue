@@ -18,17 +18,22 @@
         </q-toolbar-title> -->
 
         <q-space/>
-
-        <q-btn
-          flat
-          dense
-          round
-          icon="shopping_basket"
-          aria-label="Menu"
-          to="/cart"
+        <transition-group
+          appear
+          enter-active-class="animated shake slower delay-5s"
         >
-          <q-badge color="yellow-7" class="text-black text-bold" floating>{{ cartTotalItem }}</q-badge>
-        </q-btn>
+          <q-btn
+            flat
+            dense
+            round
+            icon="shopping_basket"
+            aria-label="Menu"
+            to="/cart"
+            :key="cartTotalItem"
+          >
+            <q-badge :key="cartTotalItem" color="yellow-7" class="text-black text-bold" floating>{{ cartTotalItem }}</q-badge>
+          </q-btn>
+        </transition-group>
       </q-toolbar>
     </q-header>
 
