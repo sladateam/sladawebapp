@@ -72,7 +72,7 @@ export default {
       }, 500)
     },
     playSound () {
-      var audio = new Audio("http://www.orangefreesounds.com/wp-content/uploads/2020/01/Push-button-sound-effect.mp3");
+      var audio = new Audio("https://slada.imfast.io/src/assets/push.mp3");
       audio.play();
     }
     // ...mapMutations('products', [

@@ -1,5 +1,4 @@
 import CartPage from '../pages/Cart';
-import ShippingPage from '../pages/Shipping';
 
 
 const routes = [
@@ -14,10 +13,6 @@ const routes = [
     path: '/cart',
     component: CartPage
   },
-  {
-    path: '/shipping',
-    component: ShippingPage
-  }
   // {
   //   path: '/dashboard',
   //   component: () => import('layouts/DashboardLayout2.vue'),

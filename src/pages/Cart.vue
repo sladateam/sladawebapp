@@ -42,7 +42,7 @@
                 flat
                 rounded
                 class="bg-red-9 text-white text-bold full-width"
-                to="/shipping"
+                @click="placeOrder"
               >
                 Pesan Sekarang
               </q-btn>
@@ -143,13 +143,24 @@
                 </div>
               </div>
               <!-- Receipt Information -->
-              <div style="background-color: white" v-if="cartTotalItem > 0">
+              <div style="background-color: white; margin-bottom: 5px;" v-if="cartTotalItem > 0">
                 <div class="row q-px-lg items-center" style="padding-top: 15px; padding-bottom: 15px">
                   <div class="col">
                     <h6 style="font-size: 14px; margin: 0; font-family: 'Open Sans'">Alamat Pengiriman</h6>
                     <q-input type="text" color="green-8" v-model="recipientName" label="Nama Penerima" dense outlined style="margin-bottom: 5px" />
                     <q-input type="text" color="green-8" v-model="customerPhone" label="No Handphone" dense outlined style="margin-bottom: 5px" />
                     <q-input type="textarea" autogrow color="green-8" v-model="addressDetail" label="Detail Alamat" dense outlined style="margin-bottom: 5px;" />
+                  </div>
+                </div>
+              </div>
+              <!-- Payment -->
+              <div style="background-color: white" v-if="cartTotalItem > 0">
+                <div class="row q-px-lg items-center" style="padding-top: 15px; padding-bottom: 15px">
+                  <div class="col">
+                    <h6 style="font-size: 14px; margin: 0; font-family: 'Open Sans'">Pilih Metode Pembayaran</h6>
+                    <q-radio size="xs" color="green-8" v-model="paymentMethod" val="COD" label="COD" />
+                    <br/>
+                    <q-radio size="xs" color="green-8" v-model="paymentMethod" val="Transfer Bank" label="Transfer Bank" />
                   </div>
                 </div>
               </div>
@@ -193,7 +204,8 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex';
+import { openURL } from 'quasar';
 
 export default {
   name: 'Cart',
@@ -203,7 +215,7 @@ export default {
       editQtyDialog: false,
       qty: null,
       currentProductId: null,
-      shippingScheduleSelected: null,
+      shippingScheduleSelected: '',
       shippingScheduleOps: [{
         value: 'Kloter 1',
         label: 'Pengantaran Jam 08:00 - 10:00 WIB'
@@ -225,6 +237,7 @@ export default {
       voucherCode: null,
       voucherDiscount: 0,
       grandTotal: 0,
+      paymentMethod: ''
     }
   },
   mounted () {
@@ -249,6 +262,7 @@ export default {
     removeProductFromCart (id) {
       this.playRemoveSound();
       this.$store.dispatch('cart/removeItem', id)
+      this.setGrandTotal();
     },
     formatPrice(value) {
         let val = (value/1).toFixed(0).replace('.', ',')
@@ -270,6 +284,7 @@ export default {
     updateQtyProduct (id) {
       const product = { id: id, qty: this.qty }
       this.$store.dispatch('cart/updateQtyProduct', product);
+      this.setGrandTotal();
       setTimeout(this.editQtyDialog = false, 1000)
     },
     setGrandTotal() {
@@ -309,8 +324,83 @@ export default {
       }
     },
     playRemoveSound () {
-      var audio = new Audio("https://www.soundjay.com/cleaning/broom-sweep-1.mp3");
+      var audio = new Audio("https://slada.imfast.io/src/assets/trash.mp3");
       audio.play();
+    },
+    placeOrder () {
+      // Assalamualaikum%20min%20saya%20order%20
+      //
+      // Detail Pesanan :
+      // Kol 100gr 1
+      // Bawang Merah 500gr 2
+      //
+      // Alamat Pengiriman :
+      // Alamat Detail, Kec, Kota, Provinsi
+      //
+      // Penerima :
+      // Zakiy Fadhil Muhsin
+      // 087821550989
+      //
+      // Jadwal Pengiriman :
+      // Jam 10.00 s/d 12.00
+      //
+      // Metode Pembayaran :
+      // COD
+      //
+      // Voucher :
+      // PELANGGANBARU01
+      //
+      // ==========================
+      //
+      // Subtotal : Rp143.000
+      // Biaya Pengiriman : Rp10.000
+      // Diskon Voucher : Rp2000
+      //
+      // Grand Total : Rp151.000 
+      //
+      // Referral : Taufik Hidayat
+      let domainWhatsapp = 'https://wa.me/';
+      let contactAdmin = 6287821550989;
+      let welcomeText = '?text=Assalamualaikum%20min%20saya%20order%20ini%0A%0A';
+      let title1 = '*Detail%20Pesanan%20:*%0A';
+      let productDetail = '';
+      let title2 = '*Alamat%20Pengiriman%20:*%0A';
+      let shippingAddress = this.addressDetail + '%0A%0A';
+      let title3 = '*Penerima%20:*%0A';
+      let recipientName = this.recipientName + '%0A';
+      let recipientPhone = this.customerPhone + '%0A%0A';
+      let title4 = '*Jadwal%20Pengiriman%20:*%0A';
+      let shipmentSchedule = this.shippingScheduleSelected.label + '%0A%0A';
+      let title5 = '*Metode%20Pembayaran%20:*%0A';
+      let paymentMethod = this.paymentMethod + '%0A%0A';
+      let title6 = '*Voucher%20:*%0A';
+      let voucherCode = '';
+      if(this.currentVoucher !== null){
+        voucherCode = this.currentVoucher.voucher_code + '%0A%0A';
+      }else{
+        voucherCode = 'Tanpa%20Voucher' + '%0A%0A';
+      }
+      let divider1 = '================================' + '%0A%0A';
+      let subTotal = '*Subtotal%20:*%20Rp' + this.formatPrice(this.totalPrice) + '%0A';
+      let shipmentFee = '*Biaya%20Pengiriman%20:*%20Rp' + this.formatPrice(this.shipmentFee) + '%0A';
+      let voucherDiscount = '*Diskon%20:*%20Rp' + this.formatPrice(this.voucherDiscount) + '%0A%0A';
+      let grandTotal = '*Grand%20Total%20:*%20Rp' + this.formatPrice(this.grandTotal) + '%0A%0A';
+      let divider2 = '================================' + '%0A%0A';
+      let referralName = '';
+      if(this.currentVoucher !== null){
+        referralName = '*Referral%20:*%20' + this.currentVoucher.referral;
+      }else{
+        referralName = 'Referral%20:%20Tanpa%20Referral' + '%0A%0A';
+      }
+
+      for(var p=0; p < this.products.length; p++){
+        productDetail += this.products[p].title + '%20';
+        productDetail += '%20x%20' + this.products[p].quantity + '%20|%20Rp' + this.formatPrice(Number(this.products[p].quantity) * this.products[p].price) + '%0A';
+        console.log(this.products[p].title + this.products[p].quantity)
+      }
+      productDetail += '%0A';
+
+      openURL(domainWhatsapp.concat(contactAdmin + welcomeText + title1 + productDetail + title2 + shippingAddress + title3 + recipientName + recipientPhone + title4 + shipmentSchedule + title5 + paymentMethod + title6 + voucherCode + divider1 + subTotal + shipmentFee + voucherDiscount + grandTotal + divider2 + referralName));
     }
   }
 }
