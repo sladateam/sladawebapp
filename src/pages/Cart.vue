@@ -91,8 +91,8 @@
                       </div>
                       <div class="col-4">
                         <h6 style="font-size: 14px; margin: 0; font-family: 'Open Sans'; text-align: right;">{{ 'Rp' + formatPrice(totalPrice) }}</h6>
-                        <h6 style="font-size: 14px; margin: -5px 0 0 0; font-family: 'Open Sans'; text-align: right;">{{ 'Rp' + formatPrice(shipmentFee) }}</h6>
-                        <h6 class="text-green" style="font-size: 14px; margin: -5px 0 0 0; font-family: 'Open Sans'; text-align: right;" v-if="currentVoucher !== null">{{ 'Rp' + formatPrice(voucherDiscount) }}</h6>
+                        <h6 style="font-size: 14px; margin: -5px 0 0 0; font-family: 'Open Sans'; text-align: right;">{{ formatPrice(shipmentFee) }}</h6>
+                        <h6 class="text-green" style="font-size: 14px; margin: -5px 0 0 0; font-family: 'Open Sans'; text-align: right;" v-if="currentVoucher !== null">{{ '-' + formatPrice(voucherDiscount) }}</h6>
                       </div>
                       <!-- <div class="col">
                           <h6 style="font-size: 14px; margin: 0; font-family: 'Open Sans'">Total Item</h6>
@@ -211,23 +211,14 @@ export default {
   name: 'Cart',
   data () {
     return {
-      shipmentFee: 10000,
+      shipmentFee: 13000,
       editQtyDialog: false,
       qty: null,
       currentProductId: null,
       shippingScheduleSelected: '',
       shippingScheduleOps: [{
-        value: 'Kloter 1',
-        label: 'Pengantaran Jam 08:00 - 10:00 WIB'
-      },{
-        value: 'Kloter 2',
-        label: 'Pengantaran Jam 10:00 - 12:00 WIB'
-      },{
-        value: 'Kloter 3',
-        label: 'Pengantaran Jam 12:00 - 15:00 WIB'
-      },{
-        value: 'Kloter 4',
-        label: 'Pengantaran Jam 15:00 - 18:00 WIB'
+        value: 'Jam Normal',
+        label: 'Pengantaran Jam 06:00 - 07:30 WIB'
       }],
       customerPhone: '',
       recipientName: '',
@@ -260,7 +251,7 @@ export default {
       this.$store.dispatch('cart/checkout', products)
     },
     removeProductFromCart (id) {
-      this.playRemoveSound();
+      //this.playRemoveSound();
       this.$store.dispatch('cart/removeItem', id)
       this.setGrandTotal();
     },

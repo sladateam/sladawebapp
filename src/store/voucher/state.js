@@ -1,12 +1,12 @@
 export default function () {
   return {
     listVoucher: [{
-      voucher_name: 'Diskon Ongkir 20%',
-      voucher_code: 'PELANGGANBARU01',
+      voucher_name: 'Ongkos Kirim Gratis',
+      voucher_code: 'GRATISONGKIR',
       type: 'shipping_charge',
-      discount: 20,
+      discount: 100,
       quota: 1,
-      referral: 'Taufik Hidayat'
+      referral: 'Slada Official'
     }],
     currentVoucher: null
   }

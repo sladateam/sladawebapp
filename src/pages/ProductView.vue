@@ -1,6 +1,16 @@
 <template>
   <q-page class="bg-grey-3">
-    <div class="fit row wrap justify-start items-start q-py-lg q-px-md">
+    <div class="row bg-white">
+      <div class="col q-px-lg q-py-lg">
+        <h4 class="text-green text-bold text-center" style="margin: 0; font-size: 26px">Kini bunda <span class="bg-yellow text-red">tidak perlu repot lagi</span> beli sayur ke pasar</h4>
+        <br/>
+        <h6 class="text-center" style="margin: 0; font-size: 21px">Bunda <span>#dirumahaja</span> biar kita antar langsung ke rumah</h6>
+        <br/>
+        <img src="~/assets/BannerPromoGratisOngkir.png" width="100%" />
+        <q-btn v-scroll-to="'#listproduct'" rounded flat class="bg-red-5 full-width text-white q-mt-md">Belanja Sekarang</q-btn>
+      </div>
+    </div>
+    <div id="listproduct" class="fit row wrap justify-start items-start q-py-lg q-px-md">
       <div class="col-6" v-for="(prd, i) in products" :key="i">
         <q-card class="bg-white" style="margin: 0px 5px 15px 5px" flat bordered>
           <q-card-section style="padding: 10px 16px 16px 16px">
@@ -37,6 +47,9 @@
 import Vue from 'vue';
 import axios from 'axios';
 import { mapMutations, mapState, mapActions } from 'vuex';
+var VueScrollTo = require('vue-scrollto');
+
+Vue.use(VueScrollTo);
 
 export default {
   name: 'PageIndex',
@@ -68,12 +81,16 @@ export default {
       setTimeout(() => {
         this.buttonLoading = [];
         this.$store.dispatch('cart/addProductToCart', product);
-        this.playSound();
+        //this.playSound();
       }, 500)
     },
     playSound () {
       var audio = new Audio("https://slada.imfast.io/src/assets/push.mp3");
       audio.play();
+    },
+    scrollButton (idName) {
+      var el = this.$el.getElementsById(idName)[0];
+      el.scrollIntoView();
     }
     // ...mapMutations('products', [
     //   ''

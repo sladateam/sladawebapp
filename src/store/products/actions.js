@@ -22,10 +22,10 @@ import axios from 'axios';
 
 export function fetchProducts ({commit}) {
 
-  axios.get( "https://sheetdb.io/api/v1/qm26nnwtfg9he" )
+  axios.get( "https://api.sheetson.com/v1/sheets/Sheet1?spreadsheetId=1N6T2X90zve0_zZ2VXklYuPjbCXgJK8VQk6r4QZ_afFg" )
     .then(response => {
       console.log(response)
-      commit('setProducts', response.data);
+      commit('setProducts', response.data.results);
     })
     .catch(error => {
       if (error.response) {
