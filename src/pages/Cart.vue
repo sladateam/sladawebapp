@@ -351,7 +351,7 @@ export default {
       //
       // Referral : Taufik Hidayat
       let domainWhatsapp = 'https://wa.me/';
-      let contactAdmin = 6287821550989;
+      let contactAdmin = 628987663604;
       let welcomeText = '?text=Assalamualaikum%20min%20saya%20order%20ini%0A%0A';
       let title1 = '*Detail%20Pesanan%20:*%0A';
       let productDetail = '';
