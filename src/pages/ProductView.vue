@@ -6,7 +6,7 @@
         <br/>
         <h6 class="text-center" style="margin: 0; font-size: 21px">Bunda <span>#dirumahaja</span> biar kita antar langsung ke rumah</h6>
         <br/>
-        <img src="~/assets/BannerPromoGratisOngkir.png" width="100%" />
+        <img src="~/assets/BannerPromoGratisOngkir-min.png" width="100%" />
         <q-btn v-scroll-to="'#listproduct'" rounded flat class="bg-red-5 full-width text-white q-mt-md">Belanja Sekarang</q-btn>
       </div>
     </div>
