@@ -211,7 +211,7 @@ export default {
   name: 'Cart',
   data () {
     return {
-      shipmentFee: 13000,
+      shipmentFee: 10000,
       editQtyDialog: false,
       qty: null,
       currentProductId: null,
